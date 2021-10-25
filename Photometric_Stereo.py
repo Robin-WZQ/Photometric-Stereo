@@ -2,7 +2,7 @@
     @file_name:Photometric_Stereo
     @file_function: Photometric Stereo algorathim
     @time: 2021/9/24
-    @author: 王中琦
+    @author: Wang Zhongqi
     @software: VSCode 
 '''
 import cv2
@@ -16,7 +16,7 @@ from tools.visualization import visualize
 
 def main(Image_name = 'cat'):
 
-    # =================读取mask信息=================
+    # =================read the information in MASK=================
     mask = cv2.imread('data_processed/'+Image_name+"/"+Image_name+'.mask.png')
     mask2 = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
     height,width,_=mask.shape
@@ -26,7 +26,7 @@ def main(Image_name = 'cat'):
             for j in range(width):
                 dst[i,j][k]=255-mask[i,j][k]
 
-    # ================获得光照向量=================
+    # ================obtain the light vector=================
     file_path = "data_processed/lights.txt"
     file = open(file_path,'r')
     L=[]
@@ -45,7 +45,7 @@ def main(Image_name = 'cat'):
     file.close()
     L = np.array(L)
 
-    # =================获得图片信息=================
+    # =================obtain picture infor=================
     I = []
     for i in range(12):
         picture = np.array(Image.open('data_processed/'+Image_name+"/"+Image_name+'.'+str(i)+'.png'),'f')
@@ -55,7 +55,7 @@ def main(Image_name = 'cat'):
         I.append(picture)
     I = np.array(I)
 
-    # =================计算表面法向量=================
+    # =================compute surface normal vector=================
     normal = compute_surfNorm(I, L,mask)
     N = np.reshape(normal.copy(),(height, width, 3))
     # RGB to BGR
@@ -68,12 +68,12 @@ def main(Image_name = 'cat'):
     result = result * 255
     cv2.imwrite("results/normal files/"+Image_name+".jpg",result)
 
-    # =================计算深度图=================
+    # =================compute depth map=================
     Z = compute_depth(mask=mask2.copy(),N=normal.copy())
     save_depthmap(Z,filename="./est_depth")
     disp_depthmap(depth=Z,name="height")
 
-    # =================产生obj文件进行可视化=================
+    # =================generate the obj file to visualize=================
     visualize('est_depth.npy',Image_name)
     
 if __name__ == "__main__":
@@ -81,5 +81,5 @@ if __name__ == "__main__":
     i=0
     for thing in things:
         i+=1
-        print("进度：{}/{}".format(i,len(things)))
+        print("progress：{}/{}".format(i,len(things)))
         main(thing)
