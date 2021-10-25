@@ -8,8 +8,11 @@ A python implementation of the Basic Photometric Stereo Algorithm
 ![图片2](%E5%9B%BE%E7%89%872.png)
 
 (a) noraml vector
+
 (b) depth map
+
 (c) point cloud picture (observed from the front view)
+
 (d) point cloud picture (observed from the side view) [By Meshlab]
 
 ## Usage
