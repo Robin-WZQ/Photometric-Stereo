@@ -13,31 +13,31 @@ run Photometric_Stereo.py
 
 ## Code Tree
 
-|data  #原始数据，tga格式
+|data  #raw data，tga format
 
-|data_processed  #处理后的数据，png格式
+|data_processed  #processed data，png format
 
 |results
 
------|normal files  #法向量图片
+-----|normal files  # noraml vector pictures
 
------|obj files  #3维点云图
+-----|obj files  # 3D point cloud image
 
 |tools
 
------|tga2png.py  #tga格式转png格式工具函数
+-----|tga2png.py  #tga2png function
 
------|visualization.py  #点云可视化生成工具
+-----|visualization.py  # point cloud visualize function
 
-est_depth.npy  #点云的numpy格式文件
+est_depth.npy  #the numpy file of point cloud
 
-HeightMap.py  #高度场计算函数集合
+HeightMap.py  #set of height map computed functions
 
-Photometric_Stereo.py  #主函数
+Photometric_Stereo.py  # main function
 
-README.md #说明文件
+README.md # description file
 
-requirements.txt  #所需要的第三方库
+requirements.txt  # dependence
 
-SurfNorm.py #物体表面法向量计算函数集合
+SurfNorm.py # set of surface noraml vector computed functions
 
