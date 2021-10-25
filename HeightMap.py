@@ -4,12 +4,12 @@ import cv2
 
 def compute_depth(mask,N):
     """
-    计算出深度图
+    compute the depth picture
     """
     im_h, im_w = mask.shape
     N = np.reshape(N, (im_h, im_w, 3))
 
-    # =================得到掩膜图像非零值索引=================
+    # =================get the non-zero index of mask=================
     obj_h, obj_w = np.where(mask != 0)
     no_pix = np.size(obj_h) #37244
     full2obj = np.zeros((im_h, im_w))
@@ -19,12 +19,12 @@ def compute_depth(mask,N):
     M = scipy.sparse.lil_matrix((2*no_pix, no_pix))
     v = np.zeros((2*no_pix, 1))
 
-    # =================填充M和v=================
+    # ================= fill the M&V =================
     for idx in range(no_pix):
-        # 获取2D图像上的坐标
+        # obtain the 2D coordinate
         h = obj_h[idx]
         w = obj_w[idx]
-        # 获取表面法线
+        # obtian the surface normal vector
         n_x = N[h, w, 0]
         n_y = N[h, w, 1]
         n_z = N[h, w, 2]
@@ -65,7 +65,7 @@ def compute_depth(mask,N):
             else:
                 v[row_idx] = -n_y / n_z
 
-    # =================求解线性方程组 Mz = v=================
+    # =================sloving the linear equations Mz = v=================
     MtM = M.T @ M
     Mtv = M.T @ v
     z = scipy.sparse.linalg.spsolve(MtM, Mtv)
@@ -79,7 +79,7 @@ def compute_depth(mask,N):
 
     Z = mask.astype('float')
     for idx in range(no_pix):
-        # 2D图像中的位置
+        # obtain the position in 2D picture 
         h = obj_h[idx]
         w = obj_w[idx]
         Z[h, w] = (z[idx] - z_min) / (z_max - z_min) * 255
@@ -88,13 +88,13 @@ def compute_depth(mask,N):
     return depth
 
 def save_depthmap(depth,filename=None):
-    """将深度图保存为npy格式"""
+    """save the depth map in npy format"""
     if filename is None:
         raise ValueError("filename is None")
     np.save(filename, depth)
 
 def disp_depthmap(depth=None, delay=0, name=None):
-    """显示深度图"""
+    """display the depth map"""
     depth = np.uint8(depth)
     if name is None:
         name = 'depth map'
