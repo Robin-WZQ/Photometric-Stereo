@@ -2,7 +2,7 @@ import numpy as np
 from sklearn.preprocessing import normalize
 
 def compute_surfNorm(I, L, mask):
-    '''物体表面法向量计算'''
+    '''compute the surface normal vector'''
     N = np.linalg.lstsq(L, I, rcond=-1)[0].T
     N = normalize(N, axis=1)    
     return N
