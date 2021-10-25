@@ -1,7 +1,7 @@
 from PIL import Image
 
 def tga2gpg(class_names):
-    '''tga转png'''
+    '''tga2png'''
     for class_name in class_names:
         for i in range(12):
             file_path = 'E:/大三/计算机视觉/作业/光度立体视觉/学习资料/photometric-stereo-master/psmImages/'+class_name+'/'+class_name+'.'+str(i)+'.tga'
