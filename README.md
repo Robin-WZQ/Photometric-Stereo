@@ -50,6 +50,6 @@ requirements.txt  # dependence
 
 SurfNorm.py # set of surface noraml vector computed functions
 
-## 参考
+## Reference
 借鉴大神的博客
 https://blog.csdn.net/SZU_Kwong/article/details/112757354
